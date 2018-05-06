@@ -27,7 +27,7 @@ export default new Router({
     component:NewsDetail
    },
    {
-    path: '/goods/detail',
+    path: '/goods/detail/:id',
     component:GoodsDetail
    },
    {
