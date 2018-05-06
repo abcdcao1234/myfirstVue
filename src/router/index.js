@@ -39,7 +39,7 @@ export default new Router({
     component:picturesList
    },
    {
-    path: '/pics/detail',
+    path: '/pics/details/:id',
     component:picturesDetail
    },
    

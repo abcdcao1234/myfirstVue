@@ -1,24 +1,11 @@
 <template>
   <div class="page">
-        <div class="news-detail">
-             <div class="newstitle mui-clearfix">
-                    <h4>{{newsinfo.title}}</h4>
-                    <p>
-                       <span class="mui-pull-left">发表时间:{{newsinfo.add_time|dateformat('YYYY年MM月DD日 HH:mm:ss')}}</span>
-                       <span class="mui-pull-right">点击:{{newsinfo.click}}次</span>  
-                    </p>                            
-              </div>
-              <hr>   
-              <div class="newdetail" v-html="newsinfo.content">                                     
-              </div> 
-              <div class="news-content">
-                <comment :id="$route.params.id"></comment>
-              </div>       
-         </div> 
-      
+      <detail :article="newsinfo"></detail>
+      <comment :id="$route.params.id"></comment>     
 </div>  
 </template>
 <script>
+import detail from '../../common/detail'
 import axios from 'axios'
 import dateformat from '../../filters/dateformat'
 import comment from '../../common/comment'
@@ -41,7 +28,8 @@ export default {
               })
         },
         components:{
-              comment
+              comment,
+              detail
         }
   
 }

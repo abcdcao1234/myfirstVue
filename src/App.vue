@@ -2,7 +2,7 @@
   <div id="app">
       <!-- 头部 -->
           <mt-header fixed title="我们都是好孩子">
-            <mt-button icon="back" slot="left" v-if="$route.path!='/home'" @click="$router.go(-1)">返回</mt-button>
+              <mt-button icon="back" slot="left" v-if="$route.path!='/home'" @click="$router.go(-1)">返回</mt-button>
           </mt-header>  
          <router-view/>
          <!-- 尾部 -->
