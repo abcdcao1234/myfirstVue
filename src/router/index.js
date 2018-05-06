@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/tarbar/home';
+// 新闻
 import NewsDetail from '../components/news/details'
 import NewsList from '../components/news/lists'
+// 商品
 import  GoodsList from '../components/goods/lists'
+import  Gooddesc from '../components/goods/desc'
+import  Goodcomment from '../components/goods/coment'
 import  GoodsDetail from '../components/goods/details'
+// 图片
 import  picturesList from '../components/pictures/lists'
 import  picturesDetail from '../components/pictures/details'
 Vue.use(Router)
@@ -29,6 +34,14 @@ export default new Router({
    {
     path: '/goods/detail/:id',
     component:GoodsDetail
+   },
+   {
+    path: '/goods/desc/:id',
+    component:Gooddesc
+   },
+   {
+    path: '/goods/coment/:id',
+    component:Goodcomment
    },
    {
     path: '/goods',
