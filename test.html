@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id='app'>
+         <input-count :value="count" @input="onInput"></input-count>
+         <p>{{count}}</p>
+        
+  </div>
+  <script src='./node_modules/vue/dist/vue.js'></script>
+  <script>
+    //   1.当子组件的值变化的时候，触发input事件
+    //2.手动触发父组件的input事件并将值传给了父组件
+
+      Vue.component('input-count',{
+          props:['value'],
+             template:'<input type="text" @input="updateVal($event.target.value)">',
+             methods:{
+                updateVal(val){
+                    //手动触发父组件的input事件并将值传给了父组件
+                       this.$emit('input',val)
+                } 
+             }
+      })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        count:5
+      },
+      methods:{
+        onInput(val){
+             this.count=val
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>

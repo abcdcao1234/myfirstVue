@@ -12,6 +12,8 @@ import  GoodsDetail from '../components/goods/details'
 // 图片
 import  picturesList from '../components/pictures/lists'
 import  picturesDetail from '../components/pictures/details'
+// 购物车
+import Cart from '../components/tarbar/cart'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -23,6 +25,10 @@ export default new Router({
       path: '/home',
       component:Home
    },
+   {
+    path: '/cart',
+    component:Cart
+ },
    {
     path: '/news',
     component:NewsList

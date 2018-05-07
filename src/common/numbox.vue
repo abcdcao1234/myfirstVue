@@ -1,43 +1,50 @@
 <template>
-   <div class="mui-numbox-cms">
-       <button class="mui-btn mui-btn-numbox-minus-cms" type="button" @click="minus">-</button>
-       <input type="number" :value="num" v-model="num">
-       <button class="mui-btn mui-btn-numbox-plus-cms" type="button" @click="plus">+</button>
-</div>
+    <div class="mui-numbox-cms">
+        <button class="mui-btn mui-btn-numbox-minus-cms" type="button" @click="minus">-</button>
+        <input class="mui-input-numbox-cms" type="number" v-model="num"/>
+        <button class="mui-btn mui-btn-numbox-plus-cms" type="button" @click="plus">+</button>
+    </div>
 </template>
+
 <script>
 export default {
     data(){
-          return {
-                num:0
-          }
+        return {
+            num: 0
+        }
     },
-    methods:{
-          minus(){
-                if(this.num>=this.min+this.step){
-                      this.num -=this.step
-                      this.$emit("input",this.num)
-                }
-          },
-          plus(){
-                if(this.num<=this.max-this.step){
-                       this.num +=this.step
-                       this.$emit("input",this.num)
-                }
-          }
+    methods: {
+        minus(){
+            if(this.num >= (this.min + this.step)){
+                this.num -= this.step;
+                this.$emit("input", this.num)
+            }
+        },
+        plus(){
+            if(this.num <= (this.max - this.step)){
+                this.num += this.step;
+                this.$emit("input", this.num)
+            }
+        }
     },
     watch:{
-          value:{
-                handler(nv,ov){
-                      this.num =nv
-                },
-                inmmediate:true
-          }
+        value:{
+            handler: function(nv, ov){
+                this.num = nv;
+            },
+            immediate: true
+        }
     },
-    props:['min','max','step','value']
-  
-}
+    props: ["max", "min", "step", "value"]
+};
+
+
+// 如果要在一个组件上使用v-model指令
+// 1. 这个组件必须通过props来接收一个value值
+// 2. 在组件中数据发生变化的时候，需要手动触发input事件通知外面数据变化了
+
 </script>
+
 <style>
 
 
@@ -130,5 +137,4 @@ export default {
 }
 
 </style>
-
 

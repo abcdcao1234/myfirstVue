@@ -36,7 +36,6 @@ export default {
                     axios({
                    url:'http://www.escook.cn:3000/api/getgoods?pageindex='+this.pageIndex
              }).then(res=>{
-                 console.log(res.data.message)
                   if(res.data.status==0){
                          this.goodsList.push(...res.data.message)       
                   }

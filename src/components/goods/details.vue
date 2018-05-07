@@ -22,11 +22,11 @@
                         <div class="count">
                             <span>购买数量:</span>
                             <numbox :min="0" :max="goodsInfo.stock_quantity" 
-                            :step="1" :value="num" @input="num=$event"></numbox>
+                            :step="1" :value="count" @input="count=$event"></numbox>
                         </div>
                         <div class="btns">
                            <mt-button type="primary">立即购买</mt-button>
-                           <mt-button type="danger">加入购物车</mt-button>
+                           <mt-button type="danger" @click="addToCart">加入购物车</mt-button>
                         </div>
 
 					</div>
@@ -50,7 +50,9 @@
 					</div>
 				</div>
 			</div>
-            
+             <transition  v-on:before-enter="beforeEnter" v-on:enter="enter">
+                <div class="redball"  v-show="isShow"></div>
+             </transition>
          
    </div>
 </template>
@@ -60,49 +62,78 @@ import numbox from '../../common/numbox'
 import axios from 'axios'
 import dateformat from '../../filters/dateformat'
 export default {
-    components:{
-         numbox 
-    },
-      filters:{
-            dateformat
-      },
       data(){
             return{
                   lunbos:[],
-                  goodsInfo:[]
+                  goodsInfo:[],
+                  count:0,
+                  isShow:false
             }
       },
+      methods:{
+           //加入购物车
+            addToCart(){
+                    this.isShow=true;
+                    this.$store.commit('addToCart',{
+                        id:this.$route.params.id,
+                        count:this.count
+                    })
+            },
+            
+            beforeEnter(el) {
+            //给元素加上 过渡效果
+            el.style.top = "445px";
+            el.style.left = "175px";
+            },
+            enter(el) {
+            //触发一次重绘，先让上面的transition生效
+            el.style.transition = "all .3s linear";      
+            el.offsetWidth;
+            el.style.top = (640 + window.pageYOffset)  +"px";
+            el.style.left = "240px";
+            this.isShow= false;
+            },
+     },
      created(){
-        axios({
-             url:"http://www.escook.cn:3000/api/goods/getinfo/" + this.$route.params.id   
-            }).then(res => {
-            if (res.data.status == 0) {
-                this.goodsInfo = res.data.message[0];
-            }
-        }),
-        axios({
-            url:"http://www.escook.cn:3000/api/getthumimages/" + this.$route.params.id         
-            }).then(res => {
-                    if (res.data.status == 0) {
-                        this.lunbos = res.data.message;
-                    }
-        });
-    }
+            axios({
+                url:"http://www.escook.cn:3000/api/goods/getinfo/" + this.$route.params.id   
+                }).then(res => {
+                if (res.data.status == 0) {
+                    this.goodsInfo = res.data.message[0];
+                }
+            }),
+            axios({
+                url:"http://www.escook.cn:3000/api/getthumimages/" + this.$route.params.id         
+                }).then(res => {
+                        if (res.data.status == 0) {
+                            this.lunbos = res.data.message;
+                        }
+            });
+      },
+    
+     components:{
+         numbox 
+     },
+      filters:{
+            dateformat
+      },
+  
    }
   
 
 </script>
 <style scoped>
-    .redball {
-    z-index: 999;
-    top: 445px;
-    left: 175px;
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background-color: red;
-    border-radius: 50%;
-    }
+   .redball {
+        z-index: 999;
+        top: 445px;
+        left: 175px;
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color: red;
+        border-radius: 50%;
+}
+
     .mint-swipe {
     height: 180px;
     }

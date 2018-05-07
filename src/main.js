@@ -16,11 +16,12 @@ import VuePreview from 'vue-preview'
 // defalut install
 Vue.use(VuePreview)
 Vue.config.productionTip = false
-
+import store from './store'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })
